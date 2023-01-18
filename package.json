@@ -1,0 +1,19 @@
+{
+  "name": "link-validator",
+  "version": "1.0.0",
+  "description": "Curso da alura de criacao de biblioteca em node.js",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node ./src/index.ts"
+  },
+  "author": "Hiago Guedes",
+  "license": "ISC",
+  "dependencies": {
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "chalk": "^5.2.0"
+  }
+}
