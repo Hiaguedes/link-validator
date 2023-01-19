@@ -1,8 +1,8 @@
 import chalk from 'chalk'
 import { promises, readFileSync } from 'fs'
 import { resolve } from 'path'
+import { tuppleNameAndLinkArr } from './link-pattern.js'
 import log, { colors } from './log-colors.js'
-
 
 const readUTF8File = (path: string) => {
     console.log(chalk.magenta(`lendo arquivo que esta em ${resolve(path)}`));
@@ -27,7 +27,11 @@ const asyncReadUTF8File = async (path: string) => {
 }
 
 try {
-    asyncReadUTF8File('src/arquivos_exemplo/file.md');
+    (async() => {
+        const text = await asyncReadUTF8File('src/arquivos_exemplo/file.md');
+        console.log(colors.yellow(tuppleNameAndLinkArr(text).links))
+
+    })()
 } catch (e){
     console.error(e)
 }
