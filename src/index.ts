@@ -3,16 +3,7 @@ import { promises, readFileSync } from 'fs'
 import { resolve } from 'path'
 import { tuppleNameAndLinkArr } from './link-pattern.js'
 import log, { colors } from './log-colors.js'
-
-const readUTF8File = (path: string) => {
-    console.log(chalk.magenta(`lendo arquivo que esta em ${resolve(path)}`));
-    promises.readFile(path, 'utf-8').then((text) => {
-        log().success(text);
-    })
-    .catch(err => {
-        throw new Error(colors.red(err?.message));       
-    })
-}
+import getFilePathFromArgs from './cli.js'
 
 const asyncReadUTF8File = async (path: string) => {
     console.log(chalk.magenta(`lendo arquivo que esta em ${resolve(path)}`));
@@ -28,8 +19,8 @@ const asyncReadUTF8File = async (path: string) => {
 
 try {
     (async() => {
-        const text = await asyncReadUTF8File('src/arquivos_exemplo/file.md');
-        console.log(colors.yellow(tuppleNameAndLinkArr(text).links))
+        const text = await asyncReadUTF8File(getFilePathFromArgs());
+        console.log(tuppleNameAndLinkArr(text).links)
 
     })()
 } catch (e){

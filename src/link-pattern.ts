@@ -9,11 +9,13 @@ const tuppleNameAndLinkArr = (text: string) => {
     let names = [];
     let raw = []
     let match;
+
     while((match = LinkPattern.exec(text)) != null){
         raw.push([match[1], match[2]]);
         names.push(match[1]);
         links.push(match[2]);
     }
+    
     return {
         links,
         names,
