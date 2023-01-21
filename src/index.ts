@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { tuppleNameAndLinkArr } from './link-pattern.js'
 import log, { colors } from './log-colors.js'
 import getFilePathFromArgs from './cli.js'
+import {verifyIfLinkIsValidOrNot, verifyListOfLinks} from './http-link.js'
 
 const asyncReadUTF8File = async (path: string) => {
     log().highlight(`lendo arquivo que esta em ${resolve(path)}`);
@@ -23,10 +24,24 @@ try {
             filePath.forEach(async (path) => {
                 const text = await asyncReadUTF8File(path);
                 console.log(tuppleNameAndLinkArr(text).links)
+
+                const links = tuppleNameAndLinkArr(text).links
+
+
+                verifyListOfLinks(links)
+                // links.forEach(link => {
+                //     verifyIfLinkIsValidOrNot(link)
+                // })
             })
         } else {
             const text = await asyncReadUTF8File(filePath);
             console.log(tuppleNameAndLinkArr(text).links)
+            const links = tuppleNameAndLinkArr(text).links
+
+            verifyListOfLinks(links)
+            // links.forEach(link => {
+            //     verifyIfLinkIsValidOrNot(link)
+            // })
         }
 
 
