@@ -1,30 +1,37 @@
 import fetch from "node-fetch"
 
-const verifyIfLinkIsValidOrNot = async (link: string) => {
+export type LinkValidationType = {
+    link: string;
+    ok: boolean;
+    status?: number | undefined
+}
+
+const verifyIfLinkIsValidOrNot = async (link: string): Promise<LinkValidationType> => {
 
     try {
         const res = await fetch(link)
-    
-        if(res.ok){
-            console.log(`${link} passou`)
+
+        return {
+            link,
+            ok: res.ok,
+            status: res.status,
         }
         
     } catch (e) {
-        if(e){
-            console.log(`${link} nao passou`)
+        return {
+            link,
+            ok: false,
         }
     }
 }
 
 const verifyListOfLinks = async (listLinks: string[]) => {
-    await Promise.all(
-        listLinks.map(link => {
-            verifyIfLinkIsValidOrNot(link)
-        })
-        );
+    const responses = listLinks.map<Promise<LinkValidationType>>(async(link) => {
+        return await verifyIfLinkIsValidOrNot(link)
+    })
+    const res = await Promise.all(responses)
+
+    return [...res]
 }
-
-
-verifyIfLinkIsValidOrNot('https://httpstat.us/404')
 
 export { verifyListOfLinks, verifyIfLinkIsValidOrNot };

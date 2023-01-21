@@ -28,7 +28,10 @@ try {
                 const links = tuppleNameAndLinkArr(text).links
 
 
-                verifyListOfLinks(links)
+                const resLinks = await verifyListOfLinks(links);
+
+                console.log(resLinks)
+                return resLinks
                 // links.forEach(link => {
                 //     verifyIfLinkIsValidOrNot(link)
                 // })
@@ -38,7 +41,10 @@ try {
             console.log(tuppleNameAndLinkArr(text).links)
             const links = tuppleNameAndLinkArr(text).links
 
-            verifyListOfLinks(links)
+            const resLinks =  await verifyListOfLinks(links)
+
+            console.log(resLinks)
+            return resLinks
             // links.forEach(link => {
             //     verifyIfLinkIsValidOrNot(link)
             // })
